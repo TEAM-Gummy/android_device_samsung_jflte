@@ -81,6 +81,15 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.qcom.rc
 
+# S4 Advanced Settings
+PRODUCT_PACKAGES += \
+    GummyS4Settings \
+    SamsungServiceMode
+
+# Kernel overclocking script, required for Project Elite Jf kernel inline build
+PRODUCT_COPY_FILES += \
+    device/samsung/jflte/rootdir/etc/init.d/03gummycpuclock:system/etc/init.d/03gummycpuclock
+
 # Torch
 PRODUCT_PACKAGES += Torch
 
@@ -190,6 +199,42 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.rild.nitz_short_ons_2="" \
     persist.rild.nitz_short_ons_3="" \
     ro.telephony.ril.v3=newDriverCall \
+    windowsmgr.max_events_per_sec=500 \
+    ro.kernel.android.checkjni=0 \
+    ro.media.enc.jpeg.quality=100 \
+    ro.config.nocheckin=1 \
+    debug.performance.tuning=1 \
+    persist.service.swiqi.enable=1 \
+    video.accelerate.hw=1 \
+    ro.ril.hep=1 \
+    ro.ril.hsxpa=3 \
+    ro.ril.enable.dtm=1 \
+    ro.ril.gprsclass=12 \
+    ro.ril.hsdpa.category=8 \
+    ro.ril.enable.a53=1 \
+    ro.ril.hsupa.category=5 \
+    persist.sys.purgeable_assets=1 \
+    ro.home_app_adj=1 \
+    ro.ext4fs=1 \
+    persist.sys.use_dithering=0 \
+    ro.ril.disable.power.collapse=0 \
+    dalvik.vm.heapstartsize=128m \
+    dalvik.vm.heapgrowthlimit=320m \
+    dalvik.vm.heapsize=512m \
+    dalvik.vm.execution-mode=int:jit \
+    dalvik.vm.heaputilization=0.05 \
+    dalvik.vm.heapidealfree=8388608 \
+    dalvik.vm.heapconcurrentstart=2097152 \
+    dalvik.vm.verify-bytecode=false \
+    ro.config.hw_quickpoweron=true \
+    ro.dalvik.vm.checkjni=0 \
+    dalvik.vm.dexopt-flags=v=n,o=v \
+    debug.composition.type=gpu \
+    ro.max.fling_velocity=15000 \
+    ro.min.fling_velocity=8000 \
+    ro.config.hw_fast_dormancy=1 \
+    net.dns1=8.8.4.4 \
+    net.dns2=8.8.8.8 \
     dalvik.vm.dexopt-data-only=0
 
 # call common msm8960
