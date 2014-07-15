@@ -73,6 +73,7 @@ PRODUCT_COPY_FILES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
+    fstab.qcom \
     init.carrier.rc \
     init.crda.sh \
     init.qcom.rc \
@@ -151,15 +152,6 @@ PRODUCT_COPY_FILES += device/samsung/jflte/bluetooth/bcm4335_prepatch.hcd:system
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.cwm.enable_key_repeat=true \
     ro.cwm.repeatable_keys=114,115
-# TWRP
-PRODUCT_COPY_FILES += \
-    device/samsung/jflte/libsec_km.so:recovery/root/sbin/libsec_km.so \
-    device/samsung/jflte/libsec_ecryptfs.so:recovery/root/sbin/libsec_ecryptfs.so \
-    device/samsung/jflte/libkeyutils.so:recovery/root/sbin/libkeyutils.so \
-
-# more TWRP
-PRODUCT_COPY_FILES += \
-    device/samsung/jflte/rootdir/etc/twrp.fstab:recovery/root/etc/twrp.fstab
 
 #common build.props
 PRODUCT_PROPERTY_OVERRIDES += \
