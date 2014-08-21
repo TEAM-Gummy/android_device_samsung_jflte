@@ -20,6 +20,52 @@
 # definition file).
 #
 
+# from qcom-common
+BOARD_VENDOR := samsung
+
+# Bootloader
+TARGET_NO_BOOTLOADER := true
+
+# Architecture
+TARGET_ARCH := arm
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_ARCH_VARIANT := armv7-a-neon
+
+# chargers
+BOARD_CHARGER_RES := device/samsung/qcom-common/charger
+
+# Recovery
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+
+# QCOM hardware
+TARGET_QCOM_AUDIO_VARIANT := caf
+TARGET_QCOM_DISPLAY_VARIANT := caf
+BOARD_USES_LEGACY_ALSA_AUDIO := true
+
+# Use TG PowerHAL by default
+TARGET_POWERHAL_VARIANT := tg
+
+# Graphics
+USE_OPENGL_RENDERER := true
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_USES_ION := true
+
+# Charging mode
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+BOARD_BATTERY_DEVICE_NAME := "battery"
+
+TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/qcom-common
+
+BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
+
+# Override healthd HAL
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
+
+# end from qcom-common
+
+
+
 # inherit from common msm8960
 -include device/samsung/msm8960-common/BoardConfigCommon.mk
 
