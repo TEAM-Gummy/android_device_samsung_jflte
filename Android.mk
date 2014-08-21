@@ -22,9 +22,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(BOARD_VENDOR),samsung)
-ifeq ($(TARGET_BOARD_PLATFORM),msm8960)
-ifneq ($(filter jflte,$(TARGET_DEVICE)),)
+ifeq ($(TARGET_DEVICE),jflte)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
@@ -66,6 +64,4 @@ $(FIRMWARE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_SYMLINKS)
 
-endif
-endif
 endif

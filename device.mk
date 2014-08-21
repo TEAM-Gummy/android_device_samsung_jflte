@@ -237,7 +237,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dexopt-data-only=0
 
 # call common msm8960
-$(call inherit-product, device/samsung/msm8960-common/msm8960.mk)
+$(call inherit-product, device/samsung/jflte/msm8960.mk)
 
 # call dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)

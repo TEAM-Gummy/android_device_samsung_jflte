@@ -20,8 +20,9 @@
 # definition file).
 #
 
-# from qcom-common
 BOARD_VENDOR := samsung
+
+# from qcom-common
 
 # Bootloader
 TARGET_NO_BOOTLOADER := true
@@ -64,10 +65,114 @@ BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
 
 # end from qcom-common
 
+# from msm8960-common
+# Platform
+TARGET_BOARD_PLATFORM := msm8960
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
+# Architecture
+TARGET_CPU_SMP := true
 
-# inherit from common msm8960
--include device/samsung/msm8960-common/BoardConfigCommon.mk
+# Flags for Krait CPU
+ifneq ($(VARIENT_REQUIRE_3.0_KERNEL),true)
+COMMON_GLOBAL_CFLAGS += -DNEW_ION_API
+endif
+TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
+TARGET_CPU_VARIANT := krait
+
+# Wifi related defines
+WIFI_BAND := 802_11_ABG
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_WLAN_DEVICE := bcmdhd
+BOARD_HAVE_SAMSUNG_WIFI := true
+
+WIFI_DRIVER_MODULE_ARG      := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_MODULE_AP_ARG   := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/dhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA     := "/system/etc/wifi/bcmdhd_sta.bin"
+WIFI_DRIVER_FW_PATH_AP      := "/system/etc/wifi/bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_P2P     := "/system/etc/wifi/bcmdhd_p2p.bin"
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+
+# NFC
+BOARD_HAVE_NFC := true
+
+# Vold
+BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+BOARD_VOLD_MAX_PARTITIONS := 28
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
+
+# Camera
+TARGET_PROVIDES_CAMERA_HAL := true
+USE_DEVICE_SPECIFIC_CAMERA := true
+COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
+
+# Workaround to avoid issues with legacy liblights on QCOM platforms
+TARGET_PROVIDES_LIBLIGHT := true
+
+# CMHW
+BOARD_HARDWARE_CLASS += device/samsung/msm8960-common/cmhw
+
+# Audio
+BOARD_HAVE_SAMSUNG_AUDIO := true
+BOARD_USES_ALSA_AUDIO := true
+BOARD_USES_FLUENCE_INCALL := true
+BOARD_USES_FLUENCE_FOR_VOIP := true
+BOARD_USES_SEPERATED_AUDIO_INPUT := true
+TARGET_USES_QCOM_COMPRESSED_AUDIO := true
+
+# QCOM enhanced A/V
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+
+# Kernel time optimization
+# temp remove - causing issues with short/long presses
+# KERNEL_HAS_GETTIMEOFDAY_HELPER := true
+
+# We have the new GPS driver
+BOARD_HAVE_NEW_QC_GPS := true
+
+# Use CAF media driver variant for 8960
+TARGET_QCOM_MEDIA_VARIANT := caf
+
+# Use retire fence from MDP driver
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+        device/samsung/msm8960-common/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+        file_contexts \
+        app.te \
+        bluetooth.te \
+        device.te \
+        domain.te \
+        drmserver.te \
+        file.te \
+        hci_init.te \
+        healthd.te \
+        init.te \
+        init_shell.te \
+        keystore.te \
+        kickstart.te \
+        mediaserver.te \
+        nfc.te \
+        rild.te \
+        surfaceflinger.te \
+        system.te \
+        ueventd.te \
+        wpa.te \
+        wpa_socket.te
+
+# end from msm8960-common
 
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/jflte/include
 TARGET_GCC_VERSION_EXP := 4.7
